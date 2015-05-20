@@ -1,0 +1,31 @@
+{
+  "name": "markdown-bemjson",
+  "version": "0.0.8",
+  "description": "Markdown to bemjson converter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bem-incubator/markdown-bemjson"
+  },
+  "keywords": [
+    "bem",
+    "converter",
+    "markdown",
+    "bemjson"
+  ],
+  "author": "4ok",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bem-incubator/markdown-bemjson/issues"
+  },
+  "homepage": "https://github.com/bem-incubator/markdown-bemjson",
+  "dependencies": {
+    "lodash": "^3.8.0",
+    "marked": "git+https://github.com/4ok/marked.git"
+  },
+  "readmeFilename": "README.md",
+  "readme": "ERROR: No README data found!"
+}
