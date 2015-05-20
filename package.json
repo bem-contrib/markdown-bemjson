@@ -1,6 +1,6 @@
 {
   "name": "markdown-bemjson",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Markdown to bemjson converter",
   "main": "index.js",
   "scripts": {
@@ -25,7 +25,5 @@
   "dependencies": {
     "lodash": "^3.8.0",
     "marked": "git+https://github.com/4ok/marked.git"
-  },
-  "readmeFilename": "README.md",
-  "readme": "ERROR: No README data found!"
+  }
 }
