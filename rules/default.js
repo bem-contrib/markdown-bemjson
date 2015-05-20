@@ -39,7 +39,10 @@ module.exports = {
     heading : function (text, level, raw) {
 
         return {
-            elem    : 'h' + level,
+            elem : 'header',
+            mods : {
+                level : level
+            },
             content : text
         }
     },
