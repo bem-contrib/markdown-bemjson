@@ -85,7 +85,7 @@ module.exports = {
             block : 'table',
             mix   : {
                 block : 'content',
-                elem  : 'list'
+                elem  : 'table'
             },
             content : [
                 {
