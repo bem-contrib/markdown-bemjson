@@ -140,22 +140,24 @@ Type: `object|string`
 
 ```javascript
 {
-    
-    heading : function (text, level, raw) {
-
-        return {
-            elem    : 'h' + level,
-            content : text
-        }
-    },
-
     paragraph : function (text) {
 
         return {
             elem    : 'p',
             content : text
         }
-    }
+    },
+    
+    heading : function (text, level, raw) {
+    
+        return {
+            elem : 'header',
+            mods : {
+                level : level
+            },
+            content : text
+        }
+    },
 }
 ```
 
