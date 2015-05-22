@@ -55,21 +55,24 @@ module.exports = {
     },
 
     list : function (body, ordered) {
-
-        return {
-            block : 'list',
-            mix   : {
-                block : 'content',
-                elem  : 'list'
-            },
+        var result = {
+            elem    : 'list',
             content : body
+        };
+
+        if (ordered) {
+            result.mods = {
+                type: 'ordered'
+            }
         }
+
+        return result;
     },
 
     listitem : function (text) {
 
         return {
-            elem    : 'item',
+            elem    : 'list-item',
             content : text
         }
     },
@@ -85,18 +88,14 @@ module.exports = {
     table : function (header, body) {
 
         return {
-            block : 'table',
-            mix   : {
-                block : 'content',
-                elem  : 'table'
-            },
+            elem    : 'table',
             content : [
                 {
-                    elem    : 'header',
+                    elem    : 'table-header',
                     content : header
                 },
                 {
-                    elem    : 'body',
+                    elem    : 'table-body',
                     content : body
                 }
             ]
@@ -106,14 +105,14 @@ module.exports = {
     tablerow : function (content) {
 
         return {
-            elem    : 'row',
+            elem    : 'table-row',
             content : content
         };
     },
 
     tablecell : function (content, flags) {
         var result = {
-            elem    : 'cell',
+            elem    : 'table-cell',
             content : content
         };
 
