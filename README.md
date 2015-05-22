@@ -77,12 +77,12 @@ Type: `object`
 
 *****
 
-__options.rootBlock__
+__options.wrapper__
 
-Type: `string`  
-Default: `content`
+Type: `object|false`  
+Default: `{ block : 'content }`
 
-Блок content-ом которого будет результат парсинга. Если значение установить в `false`, то содержимое не будет обернуто блоком.
+Bemjson обертка, content-ом которого будет bemjson объект результата парсинга. Если значение установить в `false`, то обертки не будет.
 
 *****
 

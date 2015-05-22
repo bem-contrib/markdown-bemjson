@@ -2,7 +2,9 @@ var path   = require('path');
 var marked = require('marked');
 var _      = require('lodash');
 
-var BLOCK_ROOT_DEFAULT = 'content';
+var WRAPPER_DEFAULT = {
+    block : 'content'
+};
 
 var markdownBemjson = function(options) {
 
@@ -47,13 +49,11 @@ var markdownBemjson = function(options) {
 
     var _getResult = function (bemjson) {
         var result;
-        var rootBlock = _getRootBlock();
+        var wrapper = _getWrapper();
 
-        if (rootBlock) {
-            result = {
-                block   : rootBlock,
-                content : bemjson
-            };
+        if (wrapper) {
+            result         = wrapper;
+            result.content = bemjson;
         } else {
             result = bemjson;
         }
@@ -61,14 +61,20 @@ var markdownBemjson = function(options) {
         return result;
     };
 
-    var _getRootBlock = function () {
-        var rootBlock = options.rootBlock;
+    var _getWrapper = function () {
+        var result = options.wrapper;
 
-        if (undefined === rootBlock) {
-            rootBlock = BLOCK_ROOT_DEFAULT;
+        if (undefined === result) {
+            result = WRAPPER_DEFAULT;
         }
 
-        return rootBlock;
+        if (false !== result && !_.isPlainObject(result)) {
+            var error = 'Wrapper must be plain object or false';
+
+            throw new Error(error);
+        }
+
+        return result;
     };
 };
 
