@@ -11,23 +11,22 @@
 
 ## Установка
 
-__npm__
+__npm__ `npm i markdown-bemjson --save`
 
-`npm i markdown-bemjson --save`
+__bower__ `bower install markdown-bemjson --save`
 
-__bower__
+__git__ `git clone https://github.com/bem-incubator/markdown-bemjson.git`
 
-`bower install markdown-bemjson --save`
-
-__git__
-
-`git clone https://github.com/bem-incubator/markdown-bemjson.git`
-
-## Простой пример
+## Простой пример на node.js
 
 ```javascript
+
+// Класический путь
 var MarkdownBemjson = require('markdown-bemjson');
 var markdownBemjson = new MarkdownBemjson();
+
+// Тоже самое, но с сахаром
+var markdownBemjson = require('markdown-bemjson')();
 
 var markdown = 'I am using __markdown__';
 var bemjson  = markdownBemjson.convert(markdown);
@@ -38,12 +37,12 @@ console.log(bemjson);
     block: 'content',
     content : [
         {
-            elem:    'p',
-            content: [
+            elem    : 'p',
+            content : [
             	'I am using ',
             	{
-            		elem: 'strong',
-            		content: ['markdown']
+            		elem    : 'strong',
+            		content : ['markdown']
         		}
     		]
         }

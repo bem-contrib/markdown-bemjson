@@ -4,11 +4,7 @@ var _      = require('lodash');
 
 var BLOCK_ROOT_DEFAULT = 'content';
 
-module.exports = function(options) {
-
-    if (!options) {
-        options = {};
-    }
+var markdownBemjson = function(options) {
 
     this.convert = function (markdown) {
         var marked  = _getInitedMarked();
@@ -74,4 +70,18 @@ module.exports = function(options) {
 
         return rootBlock;
     };
+};
+
+module.exports = function (options) {
+    var result;
+
+    if (!options) {
+        options = {};
+    }
+
+    if (!(this instanceof markdownBemjson)) {
+        result = new markdownBemjson(options);
+    }
+
+    return result;
 };
