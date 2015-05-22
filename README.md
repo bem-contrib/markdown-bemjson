@@ -14,11 +14,13 @@
 - [Идеи, замечания и пожелания](#Идеи-замечания-и-пожелания)
 - [Лицензия](#Лицензия)
 
+<a name="Зависимости"></a>
 ## Зависимости
 
 - [lodash](https://www.npmjs.com/package/lodash)
 - [marked](https://github.com/4ok/marked)
 
+<a name="Установка"></a>
 ## Установка
 
 __npm__: `npm i markdown-bemjson --save`
@@ -27,6 +29,7 @@ __bower__: `bower install markdown-bemjson --save`
 
 __git__: `git clone https://github.com/bem-incubator/markdown-bemjson.git`
 
+<a name="Простой-пример"></a>
 ## Простой пример
 
 ```javascript
@@ -60,6 +63,8 @@ console.log(bemjson);
 }
 */
 ```
+
+<a name="Документация"></a>
 ## Документация
 
 ### @contructor([options])
@@ -217,14 +222,17 @@ Type: `string`
 
 Markdown строка
 
+<a name="Авторы"></a>
 ## Авторы
 
 - [4ok](https://github.com/4ok)
 
+<a name="Идеи-замечания-и-пожелания"></a>
 ## Идеи, замечания и пожелания
 
 Все это можно оформить в виде [issues](https://github.com/bem-incubator/markdown-bemjson/issues) на GitHub.
 
+<a name="Лицензия"></a>
 ## Лицензия
 
 [MIT](http://en.wikipedia.org/wiki/MIT_License) Лицензия
