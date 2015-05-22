@@ -4,6 +4,16 @@
 
 Для обратного преобразования (bemjson в markdown) используйте модуль [bemjson-markdown](https://github.com/4ok/bemjson-markdown)
 
+## Содержание
+
+- [Зависимости](#Зависимости)
+- [Установка](#Установка)
+- [Простой пример](#Простой-пример)
+- [Документация](#Документация)
+- [Авторы](#Авторы)
+- [Идеи, замечания и пожелания](#Идеи-замечания-и-пожелания)
+- [Лицензия](#Лицензия)
+
 ## Зависимости
 
 - [lodash](https://www.npmjs.com/package/lodash)
@@ -11,17 +21,17 @@
 
 ## Установка
 
-__npm__ `npm i markdown-bemjson --save`
+__npm__: `npm i markdown-bemjson --save`
 
-__bower__ `bower install markdown-bemjson --save`
+__bower__: `bower install markdown-bemjson --save`
 
-__git__ `git clone https://github.com/bem-incubator/markdown-bemjson.git`
+__git__: `git clone https://github.com/bem-incubator/markdown-bemjson.git`
 
-## Простой пример на node.js
+## Простой пример
 
 ```javascript
 
-// Класический путь
+// Классический путь
 var MarkdownBemjson = require('markdown-bemjson');
 var markdownBemjson = new MarkdownBemjson();
 
