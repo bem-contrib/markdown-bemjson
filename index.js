@@ -6,7 +6,7 @@ var WRAPPER_DEFAULT = {
     block : 'content'
 };
 
-var markdownBemjson = function(options) {
+var MarkdownBemjson = function(options) {
 
     this.convert = function (markdown) {
         var marked  = _getInitedMarked();
@@ -81,12 +81,18 @@ var markdownBemjson = function(options) {
 module.exports = function (options) {
     var result;
 
-    if (!options) {
+    if (undefined === options) {
         options = {};
     }
 
-    if (!(this instanceof markdownBemjson)) {
-        result = new markdownBemjson(options);
+    if (!_.isPlainObject(options)) {
+        var error = 'Options should be a simple object';
+
+        throw new Error(error);
+    }
+
+    if (!(this instanceof MarkdownBemjson)) {
+        result = new MarkdownBemjson(options);
     }
 
     return result;

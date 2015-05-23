@@ -23,11 +23,17 @@
 <a name="Установка"></a>
 ## Установка
 
-__npm__: `npm i markdown-bemjson --save`
+__npm__
 
-__bower__: `bower install markdown-bemjson --save`
+```bash
+npm i markdown-bemjson --save
+```
 
-__git__: `git clone https://github.com/bem-incubator/markdown-bemjson.git`
+__git__
+
+```bash
+git clone https://github.com/bem-incubator/markdown-bemjson.git
+```
 
 <a name="Простой-пример"></a>
 ## Простой пример
@@ -138,7 +144,7 @@ Default: `true`
 
 __options.markdown.smartypants__
 
-Type: `boolean`
+Type: `boolean`  
 Default: `false`
 
 Использовать "правильные" типографические знаки препинания, например кавычки и тире.
