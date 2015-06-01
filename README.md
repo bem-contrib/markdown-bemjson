@@ -6,21 +6,24 @@
 
 ## Содержание
 
-- [Зависимости](#Зависимости)
-- [Установка](#Установка)
-- [Простой пример](#Простой-пример)
-- [Документация](#Документация)
-- [Авторы](#Авторы)
-- [Идеи, замечания и пожелания](#Идеи-замечания-и-пожелания)
-- [Лицензия](#Лицензия)
+- <a href="#dependencies">Зависимости</a>
+- <a href="#installation">Установка</a>
+- <a href="#example">Простой пример</a>
+- <a href="#manual">Документация</a>
+- <a href="#authors">Авторы</a>
+- <a href="#issues">Идеи, замечания и пожелания</a>
+- <a href="#license">Лицензия</a>
 
-<a name="Зависимости"></a>
+### Дополнительная информация
+- [История изменений](/CHANGELOG.ru.md)
+
+<a name="dependencies"></a>
 ## Зависимости
 
 - [lodash](https://www.npmjs.com/package/lodash)
 - [marked](https://github.com/4ok/marked)
 
-<a name="Установка"></a>
+<a name="installation"></a>
 ## Установка
 
 __npm__
@@ -35,7 +38,7 @@ __git__
 git clone https://github.com/bem-incubator/markdown-bemjson.git
 ```
 
-<a name="Простой-пример"></a>
+<a name="example"></a>
 ## Простой пример
 
 ```javascript
@@ -70,7 +73,7 @@ console.log(bemjson);
 */
 ```
 
-<a name="Документация"></a>
+<a name="manual"></a>
 ## Документация
 
 ### @contructor([options])
@@ -228,17 +231,17 @@ Type: `string`
 
 Markdown строка
 
-<a name="Авторы"></a>
+<a name="authors"></a>
 ## Авторы
 
 - [4ok](https://github.com/4ok)
 
-<a name="Идеи-замечания-и-пожелания"></a>
+<a name="issues"></a>
 ## Идеи, замечания и пожелания
 
 Все это можно оформить в виде [issues](https://github.com/bem-incubator/markdown-bemjson/issues) на GitHub.
 
-<a name="Лицензия"></a>
+<a name="license"></a>
 ## Лицензия
 
 [MIT](http://en.wikipedia.org/wiki/MIT_License) Лицензия
