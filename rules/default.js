@@ -180,25 +180,35 @@ module.exports = {
         return result;
     },
 
-    image : function (href, title, text, size) {
+    image : function (href, title, text, params) {
         var result = {
             elem : 'image',
             url  : href,
-            alt  : text
+            alt  : text,
+            mods : {}
         };
 
         if (title) {
             result.title = title;
         }
 
-        if (size) {
-            var width  = size[0];
-            var height = size[1];
+        if (params) {
 
-            result.width = width;
+            if (params.size) {
+                var size  = params.size;
+                var style = 'width: ' + size.width + 'px';
 
-            if (height) {
-                result.height = height;
+                if (size.height) {
+                    style += '; height: ' + size.height + 'px';
+                }
+
+                result.attrs = {
+                    style: style
+                };
+            }
+
+            if (params.align) {
+                result.mods.align = params.align;
             }
         }
 
