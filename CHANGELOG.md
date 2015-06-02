@@ -31,5 +31,5 @@ var markdownBemjson = require('markdown-bemjson')();
  
  - Добавлена возможность указать для изображения размер и выравнивание:
  ```markdown
- ![alt](http://image.jpg)**:center:200x100**
+ ![alt](http://image.jpg):center:200x100
  ```
