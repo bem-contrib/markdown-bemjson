@@ -1,6 +1,6 @@
 {
   "name": "markdown-bemjson",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Markdown to bemjson converter",
   "main": "index.js",
   "scripts": {
@@ -14,6 +14,7 @@
     "markdown",
     "bemjson",
     "converter",
+    "parser",
     "bem",
     "json"
   ],
@@ -25,6 +26,6 @@
   "homepage": "https://github.com/bem-incubator/markdown-bemjson",
   "dependencies": {
     "lodash": "^3.8.0",
-    "marked": "git+https://github.com/4ok/marked.git"
+    "markdown-converter": "^0.2.1"
   }
 }
