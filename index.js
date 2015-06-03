@@ -1,6 +1,6 @@
-var path   = require('path');
-var marked = require('marked');
-var _      = require('lodash');
+var path     = require('path');
+var markdown = require('markdown-converter');
+var _        = require('lodash');
 
 var WRAPPER_DEFAULT = {
     block : 'content'
@@ -24,13 +24,13 @@ var MarkdownBemjson = function(options) {
             }
         );
 
-        marked.setOptions(markdownOptions);
+        markdown.setOptions(markdownOptions);
 
-        return marked;
+        return markdown;
     };
 
     var _getRenderer = function () {
-        var renderer = new marked.Renderer();
+        var renderer = new markdown.Renderer();
         var rules    = options.rules;
         var defaultRules = require(
             path.join(__dirname, 'rules/default.js')
