@@ -35,7 +35,7 @@ npm i markdown-bemjson --save
 __git__
 
 ```bash
-git clone https://github.com/bem-incubator/markdown-bemjson.git
+git clone https://github.com/bem-contrib/markdown-bemjson.git
 ```
 
 <a name="example"></a>
