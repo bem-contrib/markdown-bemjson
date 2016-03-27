@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/bem-contrib/markdown-bemjson",
   "dependencies": {
+    "escape-html": "^1.0.3",
     "lodash": "^3.8.0",
     "markdown-converter": "^0.2.1"
   }

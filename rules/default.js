@@ -1,3 +1,5 @@
+var escape = require('escape-html');
+
 module.exports = function (options) {
     var tag = options.tag;
 
@@ -5,26 +7,23 @@ module.exports = function (options) {
     // Block level
 
     code : function (code, lang, escaped) {
-        var result;
-
-        // VERY STRANGE CODE, WHY DO WE PROCESS 'javascript' AS IS ?
-        if ('javascript' == lang) {
-            result = JSON.parse(code);
-        } else {
-            result = {
+        var result = {
+            elem    : 'blockcode',
+            content : {
                 elem    : 'code',
-                content : code
+                content : escaped ? code : escape(code)
+            }
+        };
+
+        if (tag) {
+            result.tag = 'pre';
+            result.content.tag = 'code';
+        }
+
+        if (lang) {
+            result.elemMods  = {
+                lang : lang
             };
-
-            if (tag) {
-                result.tag = 'code';
-            }
-
-            if (lang) {
-                result.mods  = {  // BUG: MUST BE elemMods
-                    lang : 'lang' // BUG: MUST BE lang : lang
-                };
-            }
         }
 
         return result;
@@ -50,10 +49,7 @@ module.exports = function (options) {
 
     heading : function (text, level, raw) {
         var result = {
-            elem : 'header',
-            mods : { // BUG: MUST BE elemMods
-                level : level
-            },
+            elem : 'h' + level,
             content : text
         }
 
@@ -78,20 +74,21 @@ module.exports = function (options) {
 
     list : function (body, ordered) {
         var result = {
-            elem    : 'list',
             content : body
         };
 
         if (ordered) {
+            result.elem = 'ol';
+
             if (tag) {
                 result.tag = 'ol';
             }
+        } else {
+            result.elem = 'ul';
 
-            result.mods = {  // BUG: MUST BE elemMods
-                type: 'ordered'
+            if (tag) {
+                result.tag = 'ul';
             }
-        } else if (tag) {
-            result.tag = 'ul';
         }
 
         return result;
@@ -99,7 +96,7 @@ module.exports = function (options) {
 
     listitem : function (text) {
         var result = {
-            elem    : 'list-item',
+            elem    : 'li',
             content : text
         }
 
@@ -134,7 +131,7 @@ module.exports = function (options) {
 
         if (header) {
             var thead = {
-                elem    : 'table-header',
+                elem    : 'thead',
                 content : header
             };
 
@@ -143,7 +140,7 @@ module.exports = function (options) {
             }
 
             var tbody = {
-                elem    : 'table-body',
+                elem    : 'tbody',
                 content : body
             };
 
@@ -161,7 +158,7 @@ module.exports = function (options) {
 
     tablerow : function (content) {
         var result = {
-            elem    : 'table-row',
+            elem    : 'tr',
             content : content
         };
 
@@ -174,19 +171,21 @@ module.exports = function (options) {
 
     tablecell : function (content, flags) {
         var result = {
-            elem    : 'table-cell',
             content : content
         };
 
         if (flags.header) {
+            result.elem = 'th';
+
             if (tag) {
                 result.tag = 'th';
             }
-            result.elemMods = {
-                role : 'header'
-            };
-        } else if (tag) {
-            result.tag = 'td';
+        } else {
+            result.elem = 'td';
+
+            if (tag) {
+                result.tag = 'td';
+            }
         }
 
         return result;
@@ -261,7 +260,7 @@ module.exports = function (options) {
 
     link : function (href, title, text) {
         var result = {
-            elem    : 'link',
+            elem    : 'a',
             url     : href,
             content : text
         };
@@ -280,10 +279,10 @@ module.exports = function (options) {
 
     image : function (href, title, text, params) {
         var result = {
-            elem : 'image',
+            elem : 'img',
             url  : href,
             alt  : text,
-            mods : {}     // BUG: MUST BE elemMods
+            elemMods : {}
         };
 
         if (title) {
@@ -311,7 +310,7 @@ module.exports = function (options) {
             }
 
             if (params.align) {
-                result.mods.align = params.align;  // BUG: MUST BE elemMods
+                result.elemMods.align = params.align;
             }
         }
 
