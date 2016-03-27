@@ -1,10 +1,13 @@
-module.exports = {
+module.exports = function (options) {
+    var tag = options.tag;
 
+    return {
     // Block level
 
     code : function (code, lang, escaped) {
         var result;
 
+        // VERY STRANGE CODE, WHY DO WE PROCESS 'javascript' AS IS ?
         if ('javascript' == lang) {
             result = JSON.parse(code);
         } else {
@@ -13,9 +16,13 @@ module.exports = {
                 content : code
             };
 
+            if (tag) {
+                result.tag = 'code';
+            }
+
             if (lang) {
-                result.mods  = {
-                    lang : 'lang'
+                result.mods  = {  // BUG: MUST BE elemMods
+                    lang : 'lang' // BUG: MUST BE lang : lang
                 };
             }
         }
@@ -24,34 +31,49 @@ module.exports = {
     },
 
     blockquote : function (quote) {
-
-        return {
+        var result = {
             elem    : 'blockquote',
             content : quote
         }
+
+        if (tag) {
+            result.tag = 'blockquote';
+        }
+
+        return result;
     },
 
     html : function (html) {
 
         return html;
     },
-    
-    heading : function (text, level, raw) {
 
-        return {
+    heading : function (text, level, raw) {
+        var result = {
             elem : 'header',
-            mods : {
+            mods : { // BUG: MUST BE elemMods
                 level : level
             },
             content : text
         }
+
+        if (tag) {
+            result.tag = 'h' + level;
+        }
+
+        return result;
     },
 
     hr : function () {
-
-        return {
+        var result = {
             elem : 'hr'
         }
+
+        if (tag) {
+            result.tag = 'hr';
+        }
+
+        return result;
     },
 
     list : function (body, ordered) {
@@ -61,53 +83,93 @@ module.exports = {
         };
 
         if (ordered) {
-            result.mods = {
+            if (tag) {
+                result.tag = 'ol';
+            }
+
+            result.mods = {  // BUG: MUST BE elemMods
                 type: 'ordered'
             }
+        } else if (tag) {
+            result.tag = 'ul';
         }
 
         return result;
     },
 
     listitem : function (text) {
-
-        return {
+        var result = {
             elem    : 'list-item',
             content : text
         }
+
+        if (tag) {
+            result.tag = 'li';
+        }
+
+        return result;
     },
 
     paragraph : function (text) {
-
-        return {
+        var result = {
             elem    : 'p',
             content : text
         }
+
+        if (tag) {
+            result.tag = 'p';
+        }
+
+        return result;
     },
 
     table : function (header, body) {
-
-        return {
-            elem    : 'table',
-            content : [
-                {
-                    elem    : 'table-header',
-                    content : header
-                },
-                {
-                    elem    : 'table-body',
-                    content : body
-                }
-            ]
+        var result = {
+            elem : 'table'
         };
+
+        if (tag) {
+            result.tag = 'table';
+        }
+
+        if (header) {
+            var thead = {
+                elem    : 'table-header',
+                content : header
+            };
+
+            if (tag) {
+                thead.tag = 'thead';
+            }
+
+            var tbody = {
+                elem    : 'table-body',
+                content : body
+            };
+
+            if (tag) {
+                tbody.tag = 'tbody';
+            }
+
+            result.content = [ thead, tbody ];
+        } else {
+            result.content = body;
+        }
+
+        return result;
     },
 
     tablerow : function (content) {
-
-        return {
+        var result = {
             elem    : 'table-row',
             content : content
         };
+
+        if (tag) {
+            result.tag = 'tr';
+        }
+
+        return result;
     },
 
     tablecell : function (content, flags) {
@@ -117,9 +179,14 @@ module.exports = {
         };
 
         if (flags.header) {
+            if (tag) {
+                result.tag = 'th';
+            }
             result.elemMods = {
                 role : 'header'
             };
+        } else if (tag) {
+            result.tag = 'td';
         }
 
         return result;
@@ -128,42 +195,68 @@ module.exports = {
     // Inline level
 
     strong : function (text) {
-
-        return {
+        var result = {
             elem    : 'strong',
             content : text
         }
+
+        if (tag) {
+            result.tag = 'strong';
+        }
+
+        return result;
     },
 
     em : function (text) {
-
-        return {
+        var result = {
             elem    : 'em',
             content : text
         }
+
+        if (tag) {
+            result.tag = 'em';
+        }
+
+        return result;
     },
 
     codespan : function (text) {
-
-        return {
+        var result = {
             elem    : 'code',
             content : text
         }
+
+        if (tag) {
+            result.tag = 'code';
+        }
+
+        return result;
     },
 
     br : function () {
-
-        return {
-            elem : 'br'
+        var result = {
+            elem    : 'br'
         }
+
+        if (tag) {
+            result.tag = 'br';
+            result.bem = false;
+        }
+
+        return result;
     },
 
     del : function (text) {
-
-        return {
+        var result = {
             elem    : 'del',
             content : text
         }
+
+        if (tag) {
+            result.tag = 'del';
+        }
+
+        return result;
     },
 
     link : function (href, title, text) {
@@ -177,6 +270,11 @@ module.exports = {
             result.title = title;
         }
 
+        if (tag) {
+            result.tag = 'a';
+            result.attrs = { href : href };
+        }
+
         return result;
     },
 
@@ -185,11 +283,16 @@ module.exports = {
             elem : 'image',
             url  : href,
             alt  : text,
-            mods : {}
+            mods : {}     // BUG: MUST BE elemMods
         };
 
         if (title) {
             result.title = title;
+        }
+
+        if (tag) {
+            result.tag = 'img';
+            result.attrs = { src : href, alt : text };
         }
 
         if (params) {
@@ -208,10 +311,11 @@ module.exports = {
             }
 
             if (params.align) {
-                result.mods.align = params.align;
+                result.mods.align = params.align;  // BUG: MUST BE elemMods
             }
         }
 
         return result;
     }
+}
 };

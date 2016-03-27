@@ -156,7 +156,7 @@ Default: `false`
 
 __options.rules__
 
-Type: `object|string`
+Type: `function|string`
 
 Правила преобразования.  
 Если передана строка, то она будет считаться путем до файла который возвращает правила.
@@ -164,25 +164,27 @@ Type: `object|string`
 #### Пример правил:
 
 ```javascript
-{
-    paragraph : function (text) {
+function (options) {
+    return {
+        paragraph : function (text) {
 
-        return {
-            elem    : 'p',
-            content : text
+            return {
+                elem    : 'p',
+                content : text
+            }
+        },
+
+        heading : function (text, level, raw) {
+
+            return {
+                elem : 'header',
+                elemMods : {
+                    level : level
+                },
+                content : text
+            }
         }
-    },
-    
-    heading : function (text, level, raw) {
-    
-        return {
-            elem : 'header',
-            mods : {
-                level : level
-            },
-            content : text
-        }
-    },
+    }
 }
 ```
 
@@ -222,6 +224,15 @@ __Inline level__
 - image(*string* href, *string* title, *string* text)
 
 __[Правила применяемые по умолчанию](rules/default.js)__
+
+*****
+
+__options.tag__
+
+Type: `boolean`
+Default: `false`
+
+Флаг для контроля вывода в результирующий `BEMJSON` поля `tag` с HTML-тегами по умолчанию.
 
 ### convert(markdown)
 

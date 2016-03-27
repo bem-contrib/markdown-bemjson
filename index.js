@@ -32,12 +32,10 @@ var MarkdownBemjson = function(options) {
     var _getRenderer = function () {
         var renderer = new markdown.Renderer();
         var rules    = options.rules;
-        var defaultRules = require(
-            path.join(__dirname, 'rules/default.js')
-        );
+        var defaultRules = require(path.join(__dirname, 'rules/default.js'))(options);
 
         if (_.isString(rules)) {
-            rules = require(rules);
+            rules = require(rules)(options);
         }
 
         if (!_.isPlainObject(rules)) {
