@@ -1,6 +1,6 @@
 {
   "name": "markdown-bemjson",
-  "version": "0.3.5",
+  "version": "1.0.0",
   "description": "Markdown to bemjson converter",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bem-incubator/markdown-bemjson"
+    "url": "https://github.com/bem-contrib/markdown-bemjson"
   },
   "keywords": [
     "markdown",
@@ -21,9 +21,9 @@
   "author": "4ok",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bem-incubator/markdown-bemjson/issues"
+    "url": "https://github.com/bem-contrib/markdown-bemjson/issues"
   },
-  "homepage": "https://github.com/bem-incubator/markdown-bemjson",
+  "homepage": "https://github.com/bem-contrib/markdown-bemjson",
   "dependencies": {
     "lodash": "^3.8.0",
     "markdown-converter": "^0.2.1"

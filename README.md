@@ -250,7 +250,7 @@ Markdown строка
 <a name="issues"></a>
 ## Идеи, замечания и пожелания
 
-Все это можно оформить в виде [issues](https://github.com/bem-incubator/markdown-bemjson/issues) на GitHub.
+Все это можно оформить в виде [issues](https://github.com/bem-contrib/markdown-bemjson/issues) на GitHub.
 
 <a name="license"></a>
 ## Лицензия
