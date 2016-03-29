@@ -7,6 +7,17 @@ module.exports = function (options) {
     // Block level
 
     code : function (code, lang, escaped) {
+        var highlight = options.markdown.highlight;
+
+        if (highlight) {
+            var highlighted = highlight(code, lang);
+
+            if (highlighted != null && highlighted !== code) {
+                escaped = true;
+                code = highlighted;
+            }
+        }
+
         var result = {
             elem    : 'blockcode',
             content : {

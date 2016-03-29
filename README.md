@@ -152,6 +152,12 @@ Default: `false`
 
 Использовать "правильные" типографические знаки препинания, например кавычки и тире.
 
+__options.markdown.highlight__
+
+Type: `function`
+
+A function to highlight code blocks. See https://github.com/chjj/marked#highlight
+
 *****
 
 __options.rules__
