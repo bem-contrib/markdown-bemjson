@@ -3,6 +3,8 @@ var escape = require('escape-html');
 module.exports = function (options) {
     var tag = options.tag;
 
+    options.markdown = options.markdown || {};
+
     return {
 
         // Block level
