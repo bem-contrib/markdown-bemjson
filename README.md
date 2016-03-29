@@ -252,6 +252,7 @@ Markdown строка
 ## Авторы
 
 - [4ok](https://github.com/4ok)
+- [vithar](https://github.com/vithar)
 
 <a name="issues"></a>
 ## Идеи, замечания и пожелания
