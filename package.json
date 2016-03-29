@@ -1,10 +1,10 @@
 {
   "name": "markdown-bemjson",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Markdown to bemjson converter",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/.bin/eslint ."
   },
   "repository": {
     "type": "git",
@@ -28,5 +28,9 @@
     "escape-html": "^1.0.3",
     "lodash": "^3.8.0",
     "markdown-converter": "^0.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^2.5.3",
+    "eslint-config-pedant": "^0.1.1"
   }
 }
