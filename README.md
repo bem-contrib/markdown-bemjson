@@ -20,8 +20,8 @@
 <a name="dependencies"></a>
 ## Зависимости
 
-- [lodash](https://www.npmjs.com/package/lodash)
-- [marked](https://github.com/4ok/marked)
+- [escape-html](https://github.com/component/escape-html)
+- [markdown-converter](https://github.com/4ok/markdown-converter)
 
 <a name="installation"></a>
 ## Установка
@@ -43,34 +43,32 @@ git clone https://github.com/bem-contrib/markdown-bemjson.git
 
 ```javascript
 
-// Классический путь
-var MarkdownBemjson = require('markdown-bemjson');
-var markdownBemjson = new MarkdownBemjson();
+const MarkdownBemjson = require('markdown-bemjson');
+const markdownBemjson = new MarkdownBemjson();
 
-// Тоже самое, но с сахаром
-var markdownBemjson = require('markdown-bemjson')();
-
-var markdown = 'I am using __markdown__';
-var bemjson  = markdownBemjson.convert(markdown);
+const markdown = 'I am using __markdown__';
+const bemjson  = markdownBemjson.convert(markdown);
 
 console.log(bemjson);
-/*
+```
+В результате получим следующий bemjson:
+
+```json
 {
-    block: 'content',
-    content : [
+    "block": "content",
+    "content" : [
         {
-            elem    : 'p',
-            content : [
-            	'I am using ',
+            "elem" : "p",
+            "content" : [
+            	"I am using ",
             	{
-            		elem    : 'strong',
-            		content : ['markdown']
+            		"elem" : "strong",
+            		"content" : ["markdown"]
         		}
     		]
         }
     ]
 }
-*/
 ```
 
 <a name="manual"></a>
@@ -170,25 +168,18 @@ Type: `function|string`
 #### Пример правил:
 
 ```javascript
-function (options) {
-    return {
-        paragraph : function (text) {
+{
+    paragraph() {
+        return {
+            elem : 'p',
+            content : text
+        }
+    },
 
-            return {
-                elem    : 'p',
-                content : text
-            }
-        },
-
-        heading : function (text, level, raw) {
-
-            return {
-                elem : 'header',
-                elemMods : {
-                    level : level
-                },
-                content : text
-            }
+    heading() {
+        return {
+            elem : 'h' + level,
+            content : text
         }
     }
 }
