@@ -1,32 +1,51 @@
-var path = require('path');
-var markdown = require('markdown-converter');
-var _  = require('lodash');
+'use strict';
 
-var DEFAULT_WRAPPER = {
-    block : 'content'
+const markdownConverter = require('markdown-converter');
+
+const DEFAULT_WRAPPER = {
+    block : 'content',
 };
 
-var MarkdownBemjson = function(options) {
+module.exports = class MarkdownBemjson {
 
-    var _getWrapper = function () {
-        var result = options.wrapper;
+    constructor(options) {
+        this._options = options || {};
+    }
 
-        if (result === undefined) {
-            result = DEFAULT_WRAPPER;
+    convert(markdownStr) {
+        const marked = this._getInitedMarked();
+        const bemjson = marked(markdownStr);
+
+        return this._getResult(bemjson);
+    }
+
+    _getInitedMarked() {
+        const markdownOptions = Object.assign({
+            renderer : this._getRenderer(),
+            output : 'json',
+        }, this._options.markdown || {});
+
+        markdownConverter.setOptions(markdownOptions);
+
+        return markdownConverter;
+    }
+
+    _getRenderer() {
+        const renderer = new markdownConverter.Renderer();
+        const rulesPath = './rules/default.js';
+        const defaultRules = require(rulesPath)(this._options);
+        let rules = this._options.rules;
+
+        if (typeof rules === 'string') {
+            rules = require(rules)(this._options);
         }
 
-        if (result !== false && !_.isPlainObject(result)) {
-            var error = 'Wrapper must be plain object or false';
+        return Object.assign(renderer, defaultRules, rules);
+    }
 
-            throw new Error(error);
-        }
-
-        return result;
-    };
-
-    var _getResult = function (bemjson) {
-        var result;
-        var wrapper = _getWrapper();
+    _getResult(bemjson) {
+        const wrapper = this._getWrapper();
+        let result;
 
         if (wrapper) {
             result = wrapper;
@@ -36,62 +55,17 @@ var MarkdownBemjson = function(options) {
         }
 
         return result;
-    };
+    }
 
-    var _getRenderer = function () {
-        var renderer = new markdown.Renderer();
-        var rules = options.rules;
-        var defaultRules = require(path.join(__dirname, './rules/default.js'))(options);
+    _getWrapper() {
+        const result = this._options.wrapper || DEFAULT_WRAPPER;
 
-        if (_.isString(rules)) {
-            rules = require(rules)(options);
+        if (result !== false && typeof result !== 'object') {
+            const error = 'Wrapper must be plain object or false';
+
+            throw new Error(error);
         }
 
-        if (!_.isPlainObject(rules)) {
-            rules = {};
-        }
-
-        return _.assign(renderer, defaultRules, rules);
-    };
-
-    var _getInitedMarked = function () {
-        var markdownOptions = _.assign(
-            options.markdown || {},
-            {
-                renderer : _getRenderer(),
-                output   : 'json'
-            }
-        );
-
-        markdown.setOptions(markdownOptions);
-
-        return markdown;
-    };
-
-    this.convert = function (markdownStr) {
-        var marked  = _getInitedMarked();
-        var bemjson = marked(markdownStr);
-
-        return _getResult(bemjson);
-    };
-};
-
-module.exports = function (options) {
-    var result;
-
-    if (options === undefined) {
-        options = {};
+        return result;
     }
-
-    if (!_.isPlainObject(options)) {
-        var error = 'Options should be a simple object';
-
-        throw new Error(error);
-    }
-
-    if (!(this instanceof MarkdownBemjson)) {
-        result = new MarkdownBemjson(options);
-    }
-
-    return result;
 };

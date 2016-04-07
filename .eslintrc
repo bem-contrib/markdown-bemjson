@@ -1,5 +1,1 @@
-env:
-  node: true
-  amd: true
-
-extends: pedant
+extends: 4ok

@@ -1,32 +1,34 @@
-var escape = require('escape-html');
+'use strict';
 
-module.exports = function (options) {
-    var tag = options.tag;
+const escapeHtml = require('escape-html');
 
+module.exports = function defaultRules(options) {
+    options = options || {};
     options.markdown = options.markdown || {};
+    const tag = options.tag;
 
     return {
 
         // Block level
 
-        code : function (code, lang, escaped) {
-            var highlight = options.markdown.highlight;
+        code(code, lang, escaped) {
+            const highlight = options.markdown.highlight;
 
             if (highlight) {
-                var highlighted = highlight(code, lang);
+                const highlighted = highlight(code, lang);
 
-                if (highlighted != null && highlighted !== code) {
+                if (highlighted !== null && highlighted !== code) {
                     escaped = true;
                     code = highlighted;
                 }
             }
 
-            var result = {
+            const result = {
                 elem : 'blockcode',
                 content : {
                     elem : 'code',
-                    content : escaped ? code : escape(code)
-                }
+                    content : escaped ? code : escapeHtml(code),
+                },
             };
 
             if (tag) {
@@ -35,18 +37,18 @@ module.exports = function (options) {
             }
 
             if (lang) {
-                result.elemMods  = {
-                    lang : lang
+                result.elemMods = {
+                    lang,
                 };
             }
 
             return result;
         },
 
-        blockquote : function (quote) {
-            var result = {
+        blockquote(quote) {
+            const result = {
                 elem : 'blockquote',
-                content : quote
+                content : quote,
             };
 
             if (tag) {
@@ -56,15 +58,14 @@ module.exports = function (options) {
             return result;
         },
 
-        html : function (html) {
-
+        html(html) {
             return html;
         },
 
-        heading : function (text, level) {
-            var result = {
+        heading(text, level) {
+            const result = {
                 elem : 'h' + level,
-                content : text
+                content : text,
             };
 
             if (tag) {
@@ -74,9 +75,9 @@ module.exports = function (options) {
             return result;
         },
 
-        hr : function () {
-            var result = {
-                elem : 'hr'
+        hr() {
+            const result = {
+                elem : 'hr',
             };
 
             if (tag) {
@@ -86,9 +87,9 @@ module.exports = function (options) {
             return result;
         },
 
-        list : function (body, ordered) {
-            var result = {
-                content : body
+        list(body, ordered) {
+            const result = {
+                content : body,
             };
 
             if (ordered) {
@@ -108,10 +109,10 @@ module.exports = function (options) {
             return result;
         },
 
-        listitem : function (text) {
-            var result = {
+        listitem(text) {
+            const result = {
                 elem : 'li',
-                content : text
+                content : text,
             };
 
             if (tag) {
@@ -121,10 +122,10 @@ module.exports = function (options) {
             return result;
         },
 
-        paragraph : function (text) {
-            var result = {
+        paragraph(text) {
+            const result = {
                 elem : 'p',
-                content : text
+                content : text,
             };
 
             if (tag) {
@@ -134,9 +135,9 @@ module.exports = function (options) {
             return result;
         },
 
-        table : function (header, body) {
-            var result = {
-                elem : 'table'
+        table(header, body) {
+            const result = {
+                elem : 'table',
             };
 
             if (tag) {
@@ -144,25 +145,25 @@ module.exports = function (options) {
             }
 
             if (header) {
-                var thead = {
+                const thead = {
                     elem : 'thead',
-                    content : header
+                    content : header,
                 };
 
                 if (tag) {
                     thead.tag = 'thead';
                 }
 
-                var tbody = {
+                const tbody = {
                     elem : 'tbody',
-                    content : body
+                    content : body,
                 };
 
                 if (tag) {
                     tbody.tag = 'tbody';
                 }
 
-                result.content = [ thead, tbody ];
+                result.content = [thead, tbody];
             } else {
                 result.content = body;
             }
@@ -170,10 +171,10 @@ module.exports = function (options) {
             return result;
         },
 
-        tablerow : function (content) {
-            var result = {
+        tablerow(content) {
+            const result = {
+                content,
                 elem : 'tr',
-                content : content
             };
 
             if (tag) {
@@ -183,9 +184,9 @@ module.exports = function (options) {
             return result;
         },
 
-        tablecell : function (content, flags) {
-            var result = {
-                content : content
+        tablecell(content, flags) {
+            const result = {
+                content,
             };
 
             if (flags.header) {
@@ -207,10 +208,10 @@ module.exports = function (options) {
 
         // Inline level
 
-        strong : function (text) {
-            var result = {
+        strong(text) {
+            const result = {
                 elem : 'strong',
-                content : text
+                content : text,
             };
 
             if (tag) {
@@ -220,10 +221,10 @@ module.exports = function (options) {
             return result;
         },
 
-        em : function (text) {
-            var result = {
+        em(text) {
+            const result = {
                 elem : 'em',
-                content : text
+                content : text,
             };
 
             if (tag) {
@@ -233,10 +234,10 @@ module.exports = function (options) {
             return result;
         },
 
-        codespan : function (text) {
-            var result = {
+        codespan(text) {
+            const result = {
                 elem : 'code',
-                content : text
+                content : text,
             };
 
             if (tag) {
@@ -246,9 +247,9 @@ module.exports = function (options) {
             return result;
         },
 
-        br : function () {
-            var result = {
-                elem : 'br'
+        br() {
+            const result = {
+                elem : 'br',
             };
 
             if (tag) {
@@ -259,10 +260,10 @@ module.exports = function (options) {
             return result;
         },
 
-        del : function (text) {
-            var result = {
+        del(text) {
+            const result = {
                 elem : 'del',
-                content : text
+                content : text,
             };
 
             if (tag) {
@@ -272,11 +273,11 @@ module.exports = function (options) {
             return result;
         },
 
-        link : function (href, title, text) {
-            var result = {
+        link(href, title, text) {
+            const result = {
                 elem : 'a',
                 url : href,
-                content : text
+                content : text,
             };
 
             if (title) {
@@ -285,18 +286,20 @@ module.exports = function (options) {
 
             if (tag) {
                 result.tag = 'a';
-                result.attrs = { href : href };
+                result.attrs = {
+                    href,
+                };
             }
 
             return result;
         },
 
-        image : function (href, title, text, params) {
-            var result = {
+        image(href, title, text, params) {
+            const result = {
                 elem : 'img',
                 url : href,
                 alt : text,
-                elemMods : {}
+                elemMods : {},
             };
 
             if (title) {
@@ -307,22 +310,22 @@ module.exports = function (options) {
                 result.tag = 'img';
                 result.attrs = {
                     src : href,
-                    alt : text
+                    alt : text,
                 };
             }
 
             if (params) {
 
                 if (params.size) {
-                    var size = params.size;
-                    var style = 'width: ' + size.width + 'px';
+                    const size = params.size;
+                    let style = 'width: ' + size.width + 'px';
 
                     if (size.height) {
                         style += '; height: ' + size.height + 'px';
                     }
 
                     result.attrs = {
-                        style : style
+                        style,
                     };
                 }
 
@@ -332,6 +335,6 @@ module.exports = function (options) {
             }
 
             return result;
-        }
-    }
+        },
+    };
 };
