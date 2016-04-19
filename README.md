@@ -60,12 +60,12 @@ console.log(bemjson);
         {
             "elem" : "p",
             "content" : [
-            	"I am using ",
-            	{
-            		"elem" : "strong",
-            		"content" : ["markdown"]
-        		}
-    		]
+                "I am using ",
+                {
+                    "elem" : "strong",
+                    "content" : ["markdown"]
+                }
+            ]
         }
     ]
 }
