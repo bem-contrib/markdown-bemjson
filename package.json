@@ -1,6 +1,6 @@
 {
   "name": "markdown-bemjson",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "engines": {
     "node": ">=4.0.0"
   },
@@ -29,7 +29,7 @@
     "markdown-converter": "^0.2.2"
   },
   "devDependencies": {
-    "eslint": "^2.8.0",
+    "eslint": "^3.0.1",
     "eslint-config-4ok": "git://github.com/4ok/eslint-config-4ok"
   },
   "scripts": {
