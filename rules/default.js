@@ -1,5 +1,3 @@
-'use strict';
-
 const escapeHtml = require('escape-html');
 
 module.exports = function defaultRules(options) {

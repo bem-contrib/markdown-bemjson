@@ -1,5 +1,3 @@
-'use strict';
-
 const markdownConverter = require('markdown-converter');
 
 const DEFAULT_WRAPPER = {
@@ -33,10 +31,12 @@ module.exports = class MarkdownBemjson {
     _getRenderer() {
         const renderer = new markdownConverter.Renderer();
         const rulesPath = './rules/default.js';
+        // eslint-disable-next-line global-require
         const defaultRules = require(rulesPath)(this._options);
         let rules = this._options.rules;
 
         if (typeof rules === 'string') {
+            // eslint-disable-next-line global-require
             rules = require(rules)(this._options);
         }
 
