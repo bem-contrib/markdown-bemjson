@@ -58,7 +58,9 @@ module.exports = class MarkdownBemjson {
     }
 
     _getWrapper() {
-        const result = this._options.wrapper || DEFAULT_WRAPPER;
+        const result = (this._options.wrapper === undefined)
+            ? DEFAULT_WRAPPER
+            : this._options.wrapper;
 
         if (result !== false && typeof result !== 'object') {
             const error = 'Wrapper must be plain object or false';
