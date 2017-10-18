@@ -3,14 +3,15 @@ const escapeHtml = require('escape-html');
 module.exports = function defaultRules(options) {
     options = options || {};
     options.markdown = options.markdown || {};
-    const tag = options.tag;
+
+    const { tag } = options;
 
     return {
 
         // Block level
 
         code(code, lang, escaped) {
-            const highlight = options.markdown.highlight;
+            const { highlight } = options.markdown;
 
             if (highlight) {
                 const highlighted = highlight(code, lang);
@@ -22,10 +23,10 @@ module.exports = function defaultRules(options) {
             }
 
             const result = {
-                elem : 'blockcode',
-                content : {
-                    elem : 'code',
-                    content : escaped ? code : escapeHtml(code),
+                elem: 'blockcode',
+                content: {
+                    elem: 'code',
+                    content: escaped ? code : escapeHtml(code),
                 },
             };
 
@@ -45,8 +46,8 @@ module.exports = function defaultRules(options) {
 
         blockquote(quote) {
             const result = {
-                elem : 'blockquote',
-                content : quote,
+                elem: 'blockquote',
+                content: quote,
             };
 
             if (tag) {
@@ -62,8 +63,8 @@ module.exports = function defaultRules(options) {
 
         heading(text, level) {
             const result = {
-                elem : 'h' + level,
-                content : text,
+                elem: 'h' + level,
+                content: text,
             };
 
             if (tag) {
@@ -75,7 +76,7 @@ module.exports = function defaultRules(options) {
 
         hr() {
             const result = {
-                elem : 'hr',
+                elem: 'hr',
             };
 
             if (tag) {
@@ -87,7 +88,7 @@ module.exports = function defaultRules(options) {
 
         list(body, ordered) {
             const result = {
-                content : body,
+                content: body,
             };
 
             if (ordered) {
@@ -109,8 +110,8 @@ module.exports = function defaultRules(options) {
 
         listitem(text) {
             const result = {
-                elem : 'li',
-                content : text,
+                elem: 'li',
+                content: text,
             };
 
             if (tag) {
@@ -122,8 +123,8 @@ module.exports = function defaultRules(options) {
 
         paragraph(text) {
             const result = {
-                elem : 'p',
-                content : text,
+                elem: 'p',
+                content: text,
             };
 
             if (tag) {
@@ -135,7 +136,7 @@ module.exports = function defaultRules(options) {
 
         table(header, body) {
             const result = {
-                elem : 'table',
+                elem: 'table',
             };
 
             if (tag) {
@@ -144,8 +145,8 @@ module.exports = function defaultRules(options) {
 
             if (header) {
                 const thead = {
-                    elem : 'thead',
-                    content : header,
+                    elem: 'thead',
+                    content: header,
                 };
 
                 if (tag) {
@@ -153,8 +154,8 @@ module.exports = function defaultRules(options) {
                 }
 
                 const tbody = {
-                    elem : 'tbody',
-                    content : body,
+                    elem: 'tbody',
+                    content: body,
                 };
 
                 if (tag) {
@@ -172,7 +173,7 @@ module.exports = function defaultRules(options) {
         tablerow(content) {
             const result = {
                 content,
-                elem : 'tr',
+                elem: 'tr',
             };
 
             if (tag) {
@@ -208,8 +209,8 @@ module.exports = function defaultRules(options) {
 
         strong(text) {
             const result = {
-                elem : 'strong',
-                content : text,
+                elem: 'strong',
+                content: text,
             };
 
             if (tag) {
@@ -221,8 +222,8 @@ module.exports = function defaultRules(options) {
 
         em(text) {
             const result = {
-                elem : 'em',
-                content : text,
+                elem: 'em',
+                content: text,
             };
 
             if (tag) {
@@ -234,8 +235,8 @@ module.exports = function defaultRules(options) {
 
         codespan(text) {
             const result = {
-                elem : 'code',
-                content : text,
+                elem: 'code',
+                content: text,
             };
 
             if (tag) {
@@ -247,7 +248,7 @@ module.exports = function defaultRules(options) {
 
         br() {
             const result = {
-                elem : 'br',
+                elem: 'br',
             };
 
             if (tag) {
@@ -260,8 +261,8 @@ module.exports = function defaultRules(options) {
 
         del(text) {
             const result = {
-                elem : 'del',
-                content : text,
+                elem: 'del',
+                content: text,
             };
 
             if (tag) {
@@ -273,9 +274,9 @@ module.exports = function defaultRules(options) {
 
         link(href, title, text) {
             const result = {
-                elem : 'a',
-                url : href,
-                content : text,
+                elem: 'a',
+                url: href,
+                content: text,
             };
 
             if (title) {
@@ -294,10 +295,10 @@ module.exports = function defaultRules(options) {
 
         image(href, title, text, params) {
             const result = {
-                elem : 'img',
-                url : href,
-                alt : text,
-                elemMods : {},
+                elem: 'img',
+                url: href,
+                alt: text,
+                elemMods: {},
             };
 
             if (title) {
@@ -307,15 +308,15 @@ module.exports = function defaultRules(options) {
             if (tag) {
                 result.tag = 'img';
                 result.attrs = {
-                    src : href,
-                    alt : text,
+                    src: href,
+                    alt: text,
                 };
             }
 
             if (params) {
 
                 if (params.size) {
-                    const size = params.size;
+                    const { size } = params;
                     let style = 'width: ' + size.width + 'px';
 
                     if (size.height) {

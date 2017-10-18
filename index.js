@@ -1,7 +1,7 @@
 const markdownConverter = require('markdown-converter');
 
 const DEFAULT_WRAPPER = {
-    block : 'content',
+    block: 'content',
 };
 
 module.exports = class MarkdownBemjson {
@@ -19,8 +19,8 @@ module.exports = class MarkdownBemjson {
 
     _getInitedMarked() {
         const markdownOptions = Object.assign({
-            renderer : this._getRenderer(),
-            output : 'json',
+            renderer: this._getRenderer(),
+            output: 'json',
         }, this._options.markdown || {});
 
         markdownConverter.setOptions(markdownOptions);
@@ -31,12 +31,12 @@ module.exports = class MarkdownBemjson {
     _getRenderer() {
         const renderer = new markdownConverter.Renderer();
         const rulesPath = './rules/default.js';
-        // eslint-disable-next-line global-require
+        // eslint-disable-next-line global-require, import/no-dynamic-require
         const defaultRules = require(rulesPath)(this._options);
-        let rules = this._options.rules;
+        let { rules } = this._options;
 
         if (typeof rules === 'string') {
-            // eslint-disable-next-line global-require
+            // eslint-disable-next-line global-require, import/no-dynamic-require
             rules = require(rules)(this._options);
         }
 
