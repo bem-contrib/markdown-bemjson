@@ -1,17 +1,37 @@
 const escapeHtml = require('escape-html');
 
-module.exports = function defaultRules(options) {
-    options = options || {};
-    options.markdown = options.markdown || {};
+module.exports = function defaultRules(options = {}) {
+    const {
+        tag,
+        isEscapeHtml = true,
+        markdown = {},
+    } = options;
 
-    const { tag } = options;
+    const escapeTextNodes = (items) => {
+        items = [].concat(items);
+
+        if (isEscapeHtml) {
+            return items;
+        }
+
+        return items.map((item) => {
+
+            if (typeof item === 'string') {
+                return {
+                    html: item,
+                };
+            }
+
+            return item;
+        });
+    };
 
     return {
 
         // Block level
 
         code(code, lang, escaped) {
-            const { highlight } = options.markdown;
+            const { highlight } = markdown;
 
             if (highlight) {
                 const highlighted = highlight(code, lang);
@@ -22,17 +42,20 @@ module.exports = function defaultRules(options) {
                 }
             }
 
+            if (tag) {
+                code.tag = 'code';
+            }
+
             const result = {
                 elem: 'blockcode',
                 content: {
                     elem: 'code',
-                    content: escaped ? code : escapeHtml(code),
+                    content: escapeTextNodes(escaped ? code : escapeHtml(code)),
                 },
             };
 
             if (tag) {
                 result.tag = 'pre';
-                result.content.tag = 'code';
             }
 
             if (lang) {
@@ -47,7 +70,7 @@ module.exports = function defaultRules(options) {
         blockquote(quote) {
             const result = {
                 elem: 'blockquote',
-                content: quote,
+                content: escapeTextNodes(quote),
             };
 
             if (tag) {
@@ -64,7 +87,7 @@ module.exports = function defaultRules(options) {
         heading(text, level) {
             const result = {
                 elem: 'h' + level,
-                content: text,
+                content: escapeTextNodes(text),
             };
 
             if (tag) {
@@ -111,7 +134,9 @@ module.exports = function defaultRules(options) {
         listitem(text) {
             const result = {
                 elem: 'li',
-                content: text,
+                content: []
+                    .concat(text)
+                    .map(items => escapeTextNodes(items)),
             };
 
             if (tag) {
@@ -124,7 +149,7 @@ module.exports = function defaultRules(options) {
         paragraph(text) {
             const result = {
                 elem: 'p',
-                content: text,
+                content: escapeTextNodes(text),
             };
 
             if (tag) {
@@ -172,8 +197,8 @@ module.exports = function defaultRules(options) {
 
         tablerow(content) {
             const result = {
-                content,
                 elem: 'tr',
+                content,
             };
 
             if (tag) {
@@ -185,7 +210,7 @@ module.exports = function defaultRules(options) {
 
         tablecell(content, flags) {
             const result = {
-                content,
+                content: escapeTextNodes(content),
             };
 
             if (flags.header) {
@@ -210,7 +235,7 @@ module.exports = function defaultRules(options) {
         strong(text) {
             const result = {
                 elem: 'strong',
-                content: text,
+                content: escapeTextNodes(text),
             };
 
             if (tag) {
@@ -223,7 +248,7 @@ module.exports = function defaultRules(options) {
         em(text) {
             const result = {
                 elem: 'em',
-                content: text,
+                content: escapeTextNodes(text),
             };
 
             if (tag) {
@@ -236,7 +261,7 @@ module.exports = function defaultRules(options) {
         codespan(text) {
             const result = {
                 elem: 'code',
-                content: text,
+                content: escapeTextNodes(text),
             };
 
             if (tag) {
@@ -262,7 +287,7 @@ module.exports = function defaultRules(options) {
         del(text) {
             const result = {
                 elem: 'del',
-                content: text,
+                content: escapeTextNodes(text),
             };
 
             if (tag) {
@@ -276,7 +301,7 @@ module.exports = function defaultRules(options) {
             const result = {
                 elem: 'a',
                 url: href,
-                content: text,
+                content: escapeTextNodes(text),
             };
 
             if (title) {
