@@ -1,6 +1,6 @@
 # markdown-bemjson
 
-Конвертирует данные из формата [markdown](https://ru.wikipedia.org/wiki/Markdown) в [bemjson](https://ru.bem.info/technology/bemjson/v2/bemjson/)
+Конвертирует данные из формата [markdown][markdown] в [bemjson][bemjson]
 
 Для обратного преобразования (bemjson в markdown) используйте модуль [bemjson-markdown](https://github.com/4ok/bemjson-markdown)
 
@@ -15,15 +15,17 @@
 - <a href="#license">Лицензия</a>
 
 ### Дополнительная информация
-- [История изменений](/CHANGELOG.md)
+- [История изменений][changelog]
 
 <a name="dependencies"></a>
+
 ## Зависимости
 
-- [escape-html](https://github.com/component/escape-html)
-- [markdown-converter](https://github.com/4ok/markdown-converter)
+- [escape-html][escape-html]
+- [markdown-converter][markdown-converter]
 
 <a name="installation"></a>
+
 ## Установка
 
 __npm__
@@ -39,6 +41,7 @@ git clone https://github.com/bem-contrib/markdown-bemjson.git
 ```
 
 <a name="example"></a>
+
 ## Простой пример
 
 ```javascript
@@ -72,6 +75,7 @@ console.log(bemjson);
 ```
 
 <a name="manual"></a>
+
 ## Документация
 
 ### @contructor([options])
@@ -83,6 +87,13 @@ Type: `object`
 Настройки
 
 *****
+
+__options.isEscapeHtml__
+
+Type: `boolean`  
+Default: `true`
+
+Экранировать html или нет. Если установить опцию в `false` то для каждого текстового узла будет добавлена обертка `{ html: ... }`. Подробнее об это можно почитать [тут](https://github.com/bem/bem-xjst/blob/master/docs/ru/3-api.md#%D0%AD%D0%BA%D1%80%D0%B0%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5)   
 
 __options.wrapper__
 
@@ -220,7 +231,7 @@ __Inline level__
 - link(*string* href, *string* title, *string* text)
 - image(*string* href, *string* title, *string* text)
 
-__[Правила применяемые по умолчанию](rules/default.js)__
+__[Правила применяемые по умолчанию][default-rules]__
 
 *****
 
@@ -240,25 +251,34 @@ Type: `string`
 Markdown строка
 
 <a name="authors"></a>
+
 ## Авторы
 
-- [4ok](https://github.com/4ok)
-- [vithar](https://github.com/vithar)
+- [4ok][4ok]
 
 <a name="issues"></a>
+
 ## Идеи, замечания и пожелания
 
-Все это можно оформить в виде [issues](https://github.com/bem-contrib/markdown-bemjson/issues) на GitHub.
+Все это можно оформить в виде [issues][issues] на GitHub.
 
 <a name="license"></a>
+
 ## Лицензия
 
-[MIT](http://en.wikipedia.org/wiki/MIT_License) Лицензия
+[MIT][mit] Лицензия
 
-[gfm]: https://help.github.com/articles/github-flavored-markdown
-[gfmf]: http://github.github.com/github-flavored-markdown/
-[pygmentize]: https://github.com/rvagg/node-pygmentize-bundled
+[changelog]: /CHANGELOG.md
+[escape-html]: https://github.com/component/escape-html
+[markdown-converter]: https://github.com/4ok/markdown-converter
+[markdown]: https://ru.wikipedia.org/wiki/Markdown
+[bemjson]: https://ru.bem.info/technology/bemjson/v2/bemjson/
+[bemjson-markdown]: https://github.com/4ok/bemjson-markdown
+[gfm]: https://github.github.com/gfm/
 [highlight]: https://github.com/isagalaev/highlight.js
-[badge]: http://badge.fury.io/js/marked
-[tables]: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#wiki-tables
+[tables]: https://help.github.com/articles/organizing-information-with-tables/
 [breaks]: https://help.github.com/articles/github-flavored-markdown#newlines
+[issues]: https://github.com/bem-contrib/markdown-bemjson/issues
+[4ok]: https://github.com/4ok
+[mit]: http://en.wikipedia.org/wiki/MIT_License
+[default-rules]: rules/default.js
